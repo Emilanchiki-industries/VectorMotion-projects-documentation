@@ -1,0 +1,82 @@
+{
+	"public": {
+		"description": "Specify that a scene is public",
+		"scope": "yaml",
+		"include": [
+			"*.yaml"
+		],
+		"prefix": "pub",
+		"body": "usage: public"
+	},
+	"internal": {
+		"description": "Specify that a scene is internal",
+		"scope": "yaml",
+		"include": [
+			"*.yaml"
+		],
+		"prefix": "int",
+		"body": "usage: internal"
+	},
+	"hint": {
+		"description": "Create a new hint",
+		"scope": "yaml",
+		"include": [
+			"*.yaml"
+		],
+		"prefix": "hin",
+		"body": [
+			"${1:question}?: ${2:answer}"
+		]
+	},
+	"layer": {
+		"description": "Document a new layer",
+		"scope": "yaml",
+		"include": [
+			"*.yaml"
+		],
+		"prefix": "lay",
+		"body": [
+			"${1:layer name}:",
+			"\tdescription: ${2:description}"
+		]
+	},
+	"scene": {
+		"description": "Document a new scene",
+		"scope": "yaml",
+		"include": [
+			"*.yaml"
+		],
+		"prefix": "sce",
+		"body": [
+			"${1:scene name}:",
+			"\tdescription: ${2:description}"
+		]
+	},
+	"collection": {
+		"description": "Document a new collection",
+		"scope": "yaml",
+		"include": [
+			"*.yaml"
+		],
+		"prefix": "col",
+		"body": [
+			"${1:collection name}:",
+			"\tdescription: ${2:description}"
+		]
+	},
+	"singleton": {
+		"description": "Document a new singleton collection",
+		"scope": "yaml",
+		"include": [
+			"*.yaml"
+		],
+		"prefix": "sin",
+		"body": [
+			"${1:collection name}:",
+			"\tdescription: ${2:description}",
+			"\tscenes:",
+			"\t\t$1:",
+			"\t\t\tdescription: $2"
+		]
+	}
+}

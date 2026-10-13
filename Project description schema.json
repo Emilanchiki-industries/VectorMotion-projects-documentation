@@ -1,0 +1,139 @@
+{
+    "$schema": "https://json-schema.org/draft/2019-09/schema",
+    "$defs": {
+        "shortStringInput": {
+            "type": "string",
+            "pattern": "\\S",
+            "minLength": 10,
+            "maxLength": 500
+        },
+        "longStringInput": {
+            "type": "string",
+            "pattern": "\\S",
+            "minLength": 10,
+            "maxLength": 1500
+        },
+        "description": {
+            "title": "description",
+            "$ref": "#/$defs/shortStringInput"
+        },
+        "hints": {
+            "type": "object",
+            "minProperties": 1,
+            "additionalProperties": false,
+            "patternProperties": {
+                "^\\S+.*\\?": {
+                    "title": "hint",
+                    "description": "Specifies a question as a property name and an answer for it as a property value",
+                    "$ref": "#/$defs/longStringInput"
+                }
+            }
+        },
+        "layers": {
+            "title": "layer",
+            "description": "Specifies a layer explanation",
+            "type": "object",
+            "minProperties": 1,
+            "additionalProperties": false,
+            "patternProperties": {
+                "^\\S+.*\\S$": {
+                    "title": "layer name",
+                    "description": "Specifies a layer name",
+                    "type": "object",
+                    "additionalProperties": false,
+                    "required": [
+                        "description"
+                    ],
+                    "properties": {
+                        "description": {
+                            "description": "Specifies a layer description",
+                            "$ref": "#/$defs/description"
+                        },
+                        "hints": {
+                            "title": "hints",
+                            "description": "Specifies hints with questions and answers possibly asked by a user",
+                            "$ref": "#/$defs/hints"
+                        }
+                    }
+                }
+            }
+        },
+        "scenes": {
+            "title": "scene",
+            "description": "Specifies a scene explanation",
+            "type": "object",
+            "minProperties": 1,
+            "additionalProperties": false,
+            "patternProperties": {
+                "^\\S+.*\\S$": {
+                    "title": "scene name",
+                    "description": "Specifies a scene name",
+                    "type": "object",
+                    "additionalProperties": false,
+                    "required": [
+                        "description"
+                    ],
+                    "properties": {
+                        "description": {
+                            "description": "Specifies a scene description",
+                            "$ref": "#/$defs/description"
+                        },
+                        "usage": {
+                            "title": "",
+                            "description": "Specifies a usage type",
+                            "type": "string",
+                            "default": "public",
+                            "oneOf": [
+                                {
+                                    "description": "Public scene is used by the user",
+                                    "const": "public"
+                                },
+                                {
+                                    "description": "Internal scene is made for impelemntation purposes",
+                                    "const": "internal"
+                                }
+                            ]
+                        },
+                        "layers": {
+                            "title": "layers",
+                            "description": "Specifies layers explanations",
+                                "$ref": "#/$defs/layers"
+                        }
+                    }
+                }
+            }
+        },
+        "collections": {
+            "title": "collections",
+            "description": "Specifies an explanation for a logical groups of multiple scenes",
+            "type": "object",
+            "minProperties": 1,
+            "additionalProperties": false,
+            "patternProperties": {
+                "^\\S+.*\\S$": {
+                    "title": "collection name",
+                    "description": "Specifies a collection name",
+                    "type": "object",
+                    "additionalProperties": false,
+                    "required": [
+                        "description"
+                    ],
+                    "properties": {
+                        "description": {
+                            "description": "Specifies a collection description",
+                            "$ref": "#/$defs/description"
+                        },
+                        "scenes": {
+                            "title": "scenes",
+                            "description": "Specifies scenes explanations",
+                                "$ref": "#/$defs/scenes"
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "title": "project explanation",
+    "description": "Specifies project explanation",
+    "$ref": "#/$defs/collections"
+}
