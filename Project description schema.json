@@ -68,7 +68,8 @@
                                         "description": "Specifies a static layer dependency by name pattern\nThis layer dependency is not intended to be changed by the user",
                                         "type": "string",
                                         "minLength": 1,
-                                        "pattern": "\\S+"
+                                        "pattern": "\\S+",
+                                        "examples": []
                                     },
                                     {
                                         "description": "Specifies a static or dynamic layer dependency explicitly by name pattern",
