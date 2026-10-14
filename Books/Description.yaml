@@ -1,16 +1,483 @@
+Patterns:
+  description: Specifies different patters drawn on sheets of paper placed on white background
+  scenes:
+    Rows pattern:
+      description: Specifies a pattern where the whole page is filled with horizontal lines
+      usage: internal
+      layers:
+        Rows:
+          description: Specifies horizontal lines
+        Pre-rendered scene:
+          description: Contains pre-rendered scene as an image to improve performance
+    Grid pattern:
+      description: Specifies a pattern where the whole page is covered with grid lines
+      usage: internal
+      layers:
+        Rows:
+          description: Specifies horizontal lines
+        Columns:
+          description: Specifies vertical lines
+        Pre-rendered scene:
+          description: Contains pre-rendered scene as an image to improve performance
 
-Background:
-  description: Specifies a background used for some mock-ups
+Texture:
+  description: Specifies different paper textures filling the whole scene
   scenes:
-    Background:
-      description: Specifies a background used for some mock-ups
+    Raw sheet of paper / Texture:
+      description: Specifies different paper textures filling the whole scene
+      usage: internal
+      layers:
+        Old paper:
+          description: Specifies texture of old paper
+        New paper:
+          description: Specifies texture of new paper
+
+Sides:
+  description: Specifies left and right fore edges (sides) relative to currently opened pair of pages
+  scenes:
+    Book / Left fore edge:
+      description: Specifies a look of the left fore edge
+      usage: internal
+      layers:
+        Fore edge:
+          description: Specifies a look of the left fore edge
+          dependencies:
+            - Book / Right fore edge
+    Book / Right fore edge:
+      description: Specifies a look of the right fore edge
+      usage: internal
+
+Page number background:
+  description: Specifies a way page numbers are displayed on left and right opened pages
+  scenes:
+    Left page number:
+      description: Specifies a way the page number is displayed on the left opened page
+      usage: internal
+      layers:
+        Background:
+          description: Specifies a background used for the page number on the left page
+        Label:
+          description: Specifies a label displayed beside the page number
+    Right page number:
+      description: Specifies a way the page number is displayed on the right opened page
+      usage: internal
+      layers:
+        Background:
+          description: Specifies a background used for the page number on the right page
+        Label:
+          description: Specifies a label displayed beside the page number
+
+Temporary storage for images:
+  description: Contains user added images temporarily
+  scenes:
+    Temporary storage for images:
+      description: Contains user added images temporarily
       usage: public
-Screen:
-  description: Specifies a screen shown on different devices
+
+Placeholders:
+  description: Specifies placeholders used across the project indicating where user should add content
   scenes:
-    Screen:
-      description: Specifies a screen shown on different devices
+    Content placeholder:
+      description: Specifies a placeholder put on two currently opened pages
+      usage: internal
+      layers:
+        Text:
+          description: Specifies the text of the placeholder
+
+Raw pages:
+  description: Specifies a way pages without content look like being on the left side from the left side
+  scenes:
+    Raw sheet of paper / With rows:
+      description: Specifies a page with rows
+      usage: internal
+      layers:
+        Pattern:
+          description: Refers to a row pattern
+          dependencies:
+            - Rows pattern
+        Texture:
+          description: Refers to a paper texture
+          dependencies:
+            - Raw sheet of paper / Texture
+    Raw sheet of paper / With grid:
+      description: Specifies a page with grid
+      usage: internal
+      layers:
+        Pattern:
+          description: Refers to a grid pattern
+          dependencies:
+            - Rows pattern
+        Texture:
+          description: Refers to a paper texture
+          dependencies:
+            - Raw sheet of paper / Texture
+    Raw sheet of paper / With rows and holes:
+      description: Specifies a page with rows and holes
+      usage: internal
+      layers:
+        Pattern:
+          description: Refers to the page with the row pattern
+          dependencies:
+            - Raw sheet of paper / With rows
+    Raw sheet of paper / With grid and holes:
+      description: Specifies a page with grid and holes
+      usage: internal
+      layers:
+        Pattern:
+          description: Refers to the page with the grid pattern
+          dependencies:
+            - Raw sheet of paper / With grid
+
+Pages:
+  description: Specifies 4 pairs of pages which can be shown
+  scenes:
+    Sheet of paper 1:
+      description: Specifies a look of the 1st page
       usage: public
       layers:
-        Visible area / Phone screen:
-          description: Specifies what part of the whole screen will be displayed on the phone screen
+        With rows:
+          description: Specifies a page design with rows
+          hints:
+            How to make page have this design?: Just make this layer visible and hide other 3 page design layers
+        With grid:
+          description: Specifies a page design with grid
+          hints:
+            How to make page have this design?: Just make this layer visible and hide other 3 page design layers
+        With rows and holes:
+          description: Specifies a page design with rows and holes
+          hints:
+            How to make page have this design?: Just make this layer visible and hide other 3 page design layers
+        With grid and holes:
+          description: Specifies a page design with grid and holes
+          hints:
+            How to make page have this design?: Just make this layer visible and hide other 3 page design layers
+        Page number / Background:
+          description: Specifies a page number background with label
+          dependencies:
+            - Left page number
+        Page number:
+          description: Specifies the page number
+        Placeholder:
+          description: Specifies a placeholder to let user know that a content is expected to be placed on this page
+          hints:
+            Is it safe to remove placeholder?: Absolutely, it's just a regular layer, remove it when you add content
+    Sheet of paper 2:
+      description: Specifies a look of the 2nd page
+      usage: public
+      layers:
+        With rows:
+          description: Specifies a page design with rows
+          hints:
+            How to make page have this design?: Just make this layer visible and hide other 3 page design layers
+        With grid:
+          description: Specifies a page design with grid
+          hints:
+            How to make page have this design?: Just make this layer visible and hide other 3 page design layers
+        With rows and holes:
+          description: Specifies a page design with rows and holes
+          hints:
+            How to make page have this design?: Just make this layer visible and hide other 3 page design layers
+        With grid and holes:
+          description: Specifies a page design with grid and holes
+          hints:
+            How to make page have this design?: Just make this layer visible and hide other 3 page design layers
+        Page number / Background:
+          description: Specifies a page number background with label
+          dependencies:
+            - Left page number
+        Page number:
+          description: Specifies the page number
+        Placeholder:
+          description: Specifies a placeholder to let user know that a content is expected to be placed on this page
+          hints:
+            Is it safe to remove placeholder?: Absolutely, it's just a regular layer, remove it when you add content
+    Sheet of paper 3:
+      description: Specifies a look of the 3rd page
+      usage: public
+      layers:
+        With rows:
+          description: Specifies a page design with rows
+          hints:
+            How to make page have this design?: Just make this layer visible and hide other 3 page design layers
+        With grid:
+          description: Specifies a page design with grid
+          hints:
+            How to make page have this design?: Just make this layer visible and hide other 3 page design layers
+        With rows and holes:
+          description: Specifies a page design with rows and holes
+          hints:
+            How to make page have this design?: Just make this layer visible and hide other 3 page design layers
+        With grid and holes:
+          description: Specifies a page design with grid and holes
+          hints:
+            How to make page have this design?: Just make this layer visible and hide other 3 page design layers
+        Page number / Background:
+          description: Specifies a page number background with label
+          dependencies:
+            - Left page number
+        Page number:
+          description: Specifies the page number
+        Placeholder:
+          description: Specifies a placeholder to let user know that a content is expected to be placed on this page
+          hints:
+            Is it safe to remove placeholder?: Absolutely, it's just a regular layer, remove it when you add content
+    Sheet of paper 4:
+      description: Specifies a look of the 4th page
+      usage: public
+      layers:
+        With rows:
+          description: Specifies a page design with rows
+          hints:
+            How to make page have this design?: Just make this layer visible and hide other 3 page design layers
+        With grid:
+          description: Specifies a page design with grid
+          hints:
+            How to make page have this design?: Just make this layer visible and hide other 3 page design layers
+        With rows and holes:
+          description: Specifies a page design with rows and holes
+          hints:
+            How to make page have this design?: Just make this layer visible and hide other 3 page design layers
+        With grid and holes:
+          description: Specifies a page design with grid and holes
+          hints:
+            How to make page have this design?: Just make this layer visible and hide other 3 page design layers
+        Page number / Background:
+          description: Specifies a page number background with label
+          dependencies:
+            - Left page number
+        Page number:
+          description: Specifies the page number
+        Placeholder:
+          description: Specifies a placeholder to let user know that a content is expected to be placed on this page
+          hints:
+            Is it safe to remove placeholder?: Absolutely, it's just a regular layer, remove it when you add content
+    Sheet of paper 5:
+      description: Specifies a look of the 5th page
+      usage: public
+      layers:
+        With rows:
+          description: Specifies a page design with rows
+          hints:
+            How to make page have this design?: Just make this layer visible and hide other 3 page design layers
+        With grid:
+          description: Specifies a page design with grid
+          hints:
+            How to make page have this design?: Just make this layer visible and hide other 3 page design layers
+        With rows and holes:
+          description: Specifies a page design with rows and holes
+          hints:
+            How to make page have this design?: Just make this layer visible and hide other 3 page design layers
+        With grid and holes:
+          description: Specifies a page design with grid and holes
+          hints:
+            How to make page have this design?: Just make this layer visible and hide other 3 page design layers
+        Page number / Background:
+          description: Specifies a page number background with label
+          dependencies:
+            - Left page number
+        Page number:
+          description: Specifies the page number
+        Placeholder:
+          description: Specifies a placeholder to let user know that a content is expected to be placed on this page
+          hints:
+            Is it safe to remove placeholder?: Absolutely, it's just a regular layer, remove it when you add content
+    Sheet of paper 6:
+      description: Specifies a look of the 6th page
+      usage: public
+      layers:
+        With rows:
+          description: Specifies a page design with rows
+          hints:
+            How to make page have this design?: Just make this layer visible and hide other 3 page design layers
+        With grid:
+          description: Specifies a page design with grid
+          hints:
+            How to make page have this design?: Just make this layer visible and hide other 3 page design layers
+        With rows and holes:
+          description: Specifies a page design with rows and holes
+          hints:
+            How to make page have this design?: Just make this layer visible and hide other 3 page design layers
+        With grid and holes:
+          description: Specifies a page design with grid and holes
+          hints:
+            How to make page have this design?: Just make this layer visible and hide other 3 page design layers
+        Page number / Background:
+          description: Specifies a page number background with label
+          dependencies:
+            - Left page number
+        Page number:
+          description: Specifies the page number
+        Placeholder:
+          description: Specifies a placeholder to let user know that a content is expected to be placed on this page
+          hints:
+            Is it safe to remove placeholder?: Absolutely, it's just a regular layer, remove it when you add content
+    Sheet of paper 7:
+      description: Specifies a look of the 7th page
+      usage: public
+      layers:
+        With rows:
+          description: Specifies a page design with rows
+          hints:
+            How to make page have this design?: Just make this layer visible and hide other 3 page design layers
+        With grid:
+          description: Specifies a page design with grid
+          hints:
+            How to make page have this design?: Just make this layer visible and hide other 3 page design layers
+        With rows and holes:
+          description: Specifies a page design with rows and holes
+          hints:
+            How to make page have this design?: Just make this layer visible and hide other 3 page design layers
+        With grid and holes:
+          description: Specifies a page design with grid and holes
+          hints:
+            How to make page have this design?: Just make this layer visible and hide other 3 page design layers
+        Page number / Background:
+          description: Specifies a page number background with label
+          dependencies:
+            - Left page number
+        Page number:
+          description: Specifies the page number
+        Placeholder:
+          description: Specifies a placeholder to let user know that a content is expected to be placed on this page
+          hints:
+            Is it safe to remove placeholder?: Absolutely, it's just a regular layer, remove it when you add content
+    Sheet of paper 8:
+      description: Specifies a look of the 8th page
+      usage: public
+      layers:
+        With rows:
+          description: Specifies a page design with rows
+          hints:
+            How to make page have this design?: Just make this layer visible and hide other 3 page design layers
+        With grid:
+          description: Specifies a page design with grid
+          hints:
+            How to make page have this design?: Just make this layer visible and hide other 3 page design layers
+        With rows and holes:
+          description: Specifies a page design with rows and holes
+          hints:
+            How to make page have this design?: Just make this layer visible and hide other 3 page design layers
+        With grid and holes:
+          description: Specifies a page design with grid and holes
+          hints:
+            How to make page have this design?: Just make this layer visible and hide other 3 page design layers
+        Page number / Background:
+          description: Specifies a page number background with label
+          dependencies:
+            - Left page number
+        Page number:
+          description: Specifies the page number
+        Placeholder:
+          description: Specifies a placeholder to let user know that a content is expected to be placed on this page
+          hints:
+            Is it safe to remove placeholder?: Absolutely, it's just a regular layer, remove it when you add content
+
+Filter inputs:
+  description: |
+    Specifies filters input data
+    Filters are custom effects built on top of builtin ones
+    To use a filter provide its inputs and then go to Filter results to the needed result and export it as an image
+  scenes:
+    Source image:
+      description: Specifies an image used as an input for Comics effect / Image filter
+      usage: public
+    Masked image:
+      description: Specifies an image mask used as an input for Comics effect / Image filter, second step after specifying image in Source image scene
+      usage: public
+    Callout:
+      description: Specifies a callout used as an input for Comics effect / Callout filter
+      usage: public
+
+Filter results:
+  description: |
+    Specifies filter results
+    Export them as images to use
+  scenes:
+    Comics effect / Image:
+      description: Specifies a result for the filter which adds a white image outline and a black shadow
+      usage: public
+    Comics effect / Callout:
+      description: Specifies a result for the filter which adds a white callout outline and a black shadow
+      usage: public
+
+Book:
+  description: Specifies book page connectors look and pages shown
+  scenes:
+    Raw book / Connectors:
+      description: Specifies a look of 8 page connectors
+      usage: internal
+      layers:
+        Connector 1:
+          description: The 1st connector of two pages
+        Connector 2:
+          description: The 2nd connector of two pages
+        Connector 3:
+          description: The 3rd connector of two pages
+        Connector 4:
+          description: The 4th connector of two pages
+        Connector 5:
+          description: The 5th connector of two pages
+        Connector 6:
+          description: The 6th connector of two pages
+        Connector 7:
+          description: The 7th connector of two pages
+        Connector 8:
+          description: The 8th connector of two pages
+    Raw book / 3D:
+      description: Specifies a look of the book with 2 pages opened in 3D
+      usage: internal
+      layers:
+        Cover:
+          description: Specifies a look of the book cover
+        Backdrop:
+          description: Specifies a color under page holes (if they exist)
+        Left fore edge:
+          description: Specifies a look of the left book fore edge
+          dependencies:
+            - Book / Left fore edge
+        Right fore edge:
+          description: Specifies a look of the right book fore edge
+          dependencies:
+            - Book / Right fore edge
+        Left page:
+          description: Specifies a look of the left book page
+          hints:
+            What scenes are possible to use as a reference source?: |
+              Any scenes which represent book pages like Sheet of paper 1
+              By default we reference to Sheet of paper 1
+          dependencies:
+            - Sheet of paper 1
+        Right page:
+          description: Specifies a look of the right book page
+          hints:
+            What scenes are possible to use as a reference source?: |
+              Any scenes which represent book pages like Sheet of paper 2
+              By default we reference to Sheet of paper 2
+          dependencies:
+            - Sheet of paper 2
+        Connectors:
+          description: Specifies a look of page connectors
+          dependencies:
+            - Raw book / Connectors
+
+Preview:
+  description: Specifies a final ready-to-export book preview
+  scenes:
+    Book / Preview:
+      description: Specifies a final ready-to-export book preview
+      usage: public
+      layers:
+        Table:
+          description: Specifies a texture of the table
+        Book / Shadow:
+          description: Specifies a look of the shadow casted by the book
+        Book:
+          description: Specifies the whole book on the table
+        Pencil shadow:
+          description: Specifies a look of the shadow casted by a pencil
+        Pencil:
+          description: Specifies a look of the pencil
+        Book / Highlight:
+          description: Specifies a look of highlights on the book
+        Plant:
+          description: Specifies a texture of a plant on the right
