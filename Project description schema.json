@@ -49,6 +49,20 @@
                             "description": "Specifies a layer description",
                             "$ref": "#/$defs/description"
                         },
+                        "dependencies": {
+                            "title": "dependencies",
+                            "description": "Specifies layer dependencies",
+                            "type": "array",
+                            "uniqueItems": true,
+                            "minItems": 1,
+                            "items": {
+                                "title": "dependency",
+                                "description": "Specifies a layer dependency",
+                                "type": "string",
+                                "minItems": 1,
+                                "pattern": "\\S+"
+                            }
+                        },
                         "hints": {
                             "title": "hints",
                             "description": "Specifies hints with questions and answers possibly asked by a user",
@@ -71,7 +85,8 @@
                     "type": "object",
                     "additionalProperties": false,
                     "required": [
-                        "description"
+                        "description",
+                        "usage"
                     ],
                     "properties": {
                         "description": {
@@ -85,11 +100,11 @@
                             "default": "public",
                             "oneOf": [
                                 {
-                                    "description": "Public scene is used by the user",
+                                    "description": "Public scene is used by the user with possible some of its layers locked",
                                     "const": "public"
                                 },
                                 {
-                                    "description": "Internal scene is made for impelemntation purposes",
+                                    "description": "Internal scene is made for impelemntation purposes with all its layers locked",
                                     "const": "internal"
                                 }
                             ]
