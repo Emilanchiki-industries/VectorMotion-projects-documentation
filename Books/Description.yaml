@@ -1,0 +1,16 @@
+
+Background:
+  description: Specifies a background used for some mock-ups
+  scenes:
+    Background:
+      description: Specifies a background used for some mock-ups
+      usage: public
+Screen:
+  description: Specifies a screen shown on different devices
+  scenes:
+    Screen:
+      description: Specifies a screen shown on different devices
+      usage: public
+      layers:
+        Visible area / Phone screen:
+          description: Specifies what part of the whole screen will be displayed on the phone screen
