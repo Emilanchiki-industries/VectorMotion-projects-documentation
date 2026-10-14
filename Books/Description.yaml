@@ -446,7 +446,8 @@ Book:
               Any scenes which represent book pages like Sheet of paper 1
               By default we reference to Sheet of paper 1
           dependencies:
-            - Sheet of paper 1
+            - type: dynamic
+              pattern: Sheet of paper [1-8]
         Right page:
           description: Specifies a look of the right book page
           hints:
@@ -454,7 +455,8 @@ Book:
               Any scenes which represent book pages like Sheet of paper 2
               By default we reference to Sheet of paper 2
           dependencies:
-            - Sheet of paper 2
+            - type: dynamic
+              pattern: Sheet of paper [1-8]
         Connectors:
           description: Specifies a look of page connectors
           dependencies:

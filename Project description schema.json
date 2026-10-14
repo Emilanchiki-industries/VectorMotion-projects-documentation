@@ -1,6 +1,12 @@
 {
     "$schema": "https://json-schema.org/draft/2019-09/schema",
     "$defs": {
+        "identifier": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 100,
+            "pattern": "\\S+"
+        },
         "shortStringInput": {
             "type": "string",
             "pattern": "\\S",
@@ -57,10 +63,45 @@
                             "minItems": 1,
                             "items": {
                                 "title": "dependency",
-                                "description": "Specifies a layer dependency",
-                                "type": "string",
-                                "minItems": 1,
-                                "pattern": "\\S+"
+                                "oneOf": [
+                                    {
+                                        "description": "Specifies a static layer dependency by name pattern\nThis layer dependency is not intended to be changed by the user",
+                                        "type": "string",
+                                        "minLength": 1,
+                                        "pattern": "\\S+"
+                                    },
+                                    {
+                                        "description": "Specifies a static or dynamic layer dependency explicitly by name pattern",
+                                        "type": "object",
+                                        "additionalProperties": false,
+                                        "required": [
+                                            "type",
+                                            "pattern"
+                                        ],
+                                        "properties": {
+                                            "type": {
+                                                "title": "type",
+                                                "description": "Specifies a layer dependency type",
+                                                "type": "string",
+                                                "oneOf": [
+                                                    {
+                                                        "description": "Specifies that the layer dependency is not intended to be changed by the user",
+                                                        "const": "static"
+                                                    },
+                                                    {
+                                                        "description": "Specifies that the layer dependency is can be changed by the user but just to the one matching name pattern",
+                                                        "const": "dynamic"
+                                                    }
+                                                ]
+                                            },
+                                            "pattern": {
+                                                "title": "pattern",
+                                                "description": "Specifies a layer dependency name pattern explicitly",
+                                                "$ref": "#/$defs/identifier"
+                                            }
+                                        }
+                                    }
+                                ]
                             }
                         },
                         "hints": {
@@ -112,7 +153,7 @@
                         "layers": {
                             "title": "layers",
                             "description": "Specifies layers explanations",
-                                "$ref": "#/$defs/layers"
+                            "$ref": "#/$defs/layers"
                         }
                     }
                 }
@@ -141,7 +182,7 @@
                         "scenes": {
                             "title": "scenes",
                             "description": "Specifies scenes explanations",
-                                "$ref": "#/$defs/scenes"
+                            "$ref": "#/$defs/scenes"
                         }
                     }
                 }
